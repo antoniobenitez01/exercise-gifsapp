@@ -1,17 +1,21 @@
-
-<div class="row">
-  <!-- Pantallas medianas cada columna ocupa 3/12 -->
-  <!-- Pantallas pequeñas cada columna ocupa 6/12 -->
-  <div class="col-md-3 col-sm-6">
-    <!-- card - Hacer 'tarjetas' -->
-    <!-- margin-bottom 2 -->
-    <!-- background dark -->
-    <div class="card mb-2 text-center bg-dark">
-      <!-- TODO: Crear imagen -->
-      <div class="card-body">
-        <p class="card-text text-white">
-          Has perdido El Juego.
-        </p>
-    </div>
+@if(listadoGifs.length === 0) {
+  <p class="text-center mt-5">No se ha encontrado ningún resultado</p>
+} @else {
+  <div class="row">
+    <!-- Pantallas medianas cada columna ocupa 3/12 -->
+    <!-- Pantallas pequeñas cada columna ocupa 6/12 -->
+    @for (gif of listadoGifs; track $index) {
+      <div class="col-md-3 col-sm-6">
+        <!-- card - Hacer 'tarjetas' -->
+        <!-- margin-bottom 2 -->
+        <!-- background dark -->
+        <div class="card mb-2 text-center bg-dark text-light">
+          <img src="{{gif.images.original.url}}" class="card-img-top" alt="{{gif.title}}">
+          <div class="card-body">
+            <h5 class="card-title">{{gif.title}}</h5>
+          </div>
+        </div>
+      </div>
+    }
   </div>
-</div>
+}

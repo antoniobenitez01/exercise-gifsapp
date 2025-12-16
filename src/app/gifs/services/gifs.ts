@@ -46,7 +46,6 @@ export class GifsService {
     this.http.get<SearchResponse>(`${ this.serviceurl }/search`,{ params })
     .subscribe( resp => {
       this.listadoGifs = resp.data;
-      console.log(resp.data[1].images.downsized_large.url);
     })
   }
 }
