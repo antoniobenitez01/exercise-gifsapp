@@ -18,28 +18,31 @@ export class GifsService {
   }
 
   buscarEtiqueta(etiqueta: string){
-    if(etiqueta.trim() != ""){
 
-      //LISTA DE ETIQUETAS SIDEBAR
-      console.log(etiqueta);
-      this._historialEtiquetas = this._historialEtiquetas.filter((word) => word.toLowerCase() != etiqueta.toLowerCase());
-      if(this._historialEtiquetas.length >= this.max){
-        this._historialEtiquetas.pop();
-      }
-      this._historialEtiquetas.unshift(etiqueta);
-      console.log("ARRAY = ",this.historialEtiquetas);
-
-      // HTTP CLIENT API
-      const params = new HttpParams()
-        .set('api_key',this.apiKey)
-        .set('q',etiqueta)
-        .set('limit',20)
-
-      this.http.get(`${ this.serviceurl }/search`,{ params })
-      .subscribe( resp => {
-        console.log(resp);
-      })
-
+    //* VALIDACIÓN ETIQUETA VACÍA
+    let etiquetaLocal : string = etiqueta.trim();
+    if(etiquetaLocal.length == 0){
+      return;
     }
+
+    //*LISTA DE ETIQUETAS SIDEBAR
+    //console.log(etiquetaLocal); // DEBUG
+    this._historialEtiquetas = this._historialEtiquetas.filter((word) => word.toLowerCase() != etiquetaLocal.toLowerCase());
+    if(this._historialEtiquetas.length >= this.max){
+      this._historialEtiquetas.pop();
+    }
+    this._historialEtiquetas.unshift(etiquetaLocal);
+    //console.log("ARRAY = ",this.historialEtiquetas); // DEBUG
+
+    //* HTTP CLIENT API
+    const params = new HttpParams()
+      .set('api_key',this.apiKey)
+      .set('q',etiquetaLocal)
+      .set('limit',20)
+
+    this.http.get(`${ this.serviceurl }/search`,{ params })
+    .subscribe( resp => {
+      console.log(resp);
+    })
   }
 }
